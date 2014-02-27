@@ -9,22 +9,26 @@ protected:
   };
 
   Node * new_node;
+  Node * insert;
   Node * temp;
   Node * head;
+  bool first_node;
   
 public:
   AirDB(){
     new_node = new Node;
+    insert = new_node;
     temp = new_node;
     head = new_node;
+    first_node = true;
   }
   ~AirDB() {
   }
 
   int list_length() {
-    int length;
+    int length = 0;
     new_node = head;
-    while(new_node) {
+    while(new_node != NULL) {
       new_node = new_node->next;
       length++;
     }
@@ -48,14 +52,45 @@ public:
    *
    */
   void addFlight(int flightNo) {
-    if(list_length() > 1){
-      new_node = new Node;
-      new_node->data = flightNo;
-      temp->next = new_node;
-      temp = new_node;
+    if(!first_node){
+            
+      int count;
+      count = 0;
+
+      new_node = head;
+      while(new_node) {
+	if(new_node->data < flightNo) {
+	  insert = new_node;
+	  count++;
+	}
+	else
+	  break;
+	new_node = new_node->next;
+      }
+
+      cout << "count:" << count << endl;
+      cout << "list length: " << list_length() << endl;
+      
+      if(count < list_length()) {
+	cout << "Node needs to be inserted\n";
+	new_node = new Node;
+	new_node->data = flightNo;
+	new_node->next = insert->next;
+	insert->next = new_node;
+      }
+      else {
+	cout << "Node needs to be appended\n";
+	new_node = new Node;
+	new_node->data = flightNo;
+	temp->next = new_node;
+	temp = new_node;
+      }
+
     }
     else {
+      cout << "First Node\n";
       head->data = flightNo;
+      first_node = false;
     }
   }
 
@@ -106,13 +141,14 @@ public:
 int main(void) {
   AirDB * db = new AirDB();
   db->addFlight(1);
-  cout << db->get_temp_data() << endl;
-  db->addFlight(2);
-  cout << db->get_temp_data() << endl;
-  db->addFlight(47);
-  cout << db->get_temp_data() << endl;
 
-  cout << db->list_length() << endl;
+  db->addFlight(2);
+  
+  db->addFlight(4);
+
+  db->addFlight(3);
+
+  cout << "Length: " << db->list_length() << endl;
 
   cout << "Traverse Nodes:" << endl;
   db->traverse_list();
