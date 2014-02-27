@@ -11,10 +11,6 @@ protected:
   Node * new_node;
   Node * temp;
   Node * head;
-
-  // new_node = new Node;
-  //temp = new_node;
-  //head = new_node;
   
 public:
   AirDB(){
@@ -22,83 +18,73 @@ public:
     temp = new_node;
     head = new_node;
   }
+  ~AirDB() {
+  }
 
-  int get_node_data();
-  void addFlight(int);
-  void deleteFlight(int);
-  void addPassenger(int, string, string, int);
-  void removePassenger(int, string, string, int);
-  void showPassenger(int, string, string);
+  
+  int get_temp_data() {
+    return temp->data;
+  }
+
+  /*
+   * Add a new flight to the list of flights
+   *
+   */
+  void addFlight(int flightNo) {
+    new_node = new Node;
+    new_node->data = flightNo;
+    temp->next = new_node;
+    temp = new_node;
+  }
+
+  /*
+   * Delete a flight from the list of flights
+   *
+   */
+  void deleteFlight(int flightNo);
+
+  /*
+   * Add a passenger to a flight
+   *
+   */
+  void addPassenger(int flightNo, string lastName, string firstName, int seatNo);
+
+  /*
+   * remove a passenger from a flight
+   *
+   */
+  void removePassenger(int flightNo, string lastName, string firstName, int seatNo);
+
+  /*
+   * Print out the passenger information including seat number.
+   *
+   */
+  void showPassenger(int flightNo, string lastName, string firstName);
+
+  /*
+   * Print out all the flight numbers
+   *
+   */
   void showAllFlights();
-  void showAllPassengers(int);
+
+  /*
+   * Print out all the passengers in a flight
+   *
+   */
+  void showAllPassengers(int flightNo);
+
+  /*
+   * Print out all flight numbers and all passengers in each flight
+   *
+   */
   void showAllFlightsAndPassengers();
 };
 
-int AirDB::get_node_data() {
-  return temp->data;
-}
-
-/*
- * Add a new flight to the list of flights
- *
- */
-void AirDB::addFlight(int flightNo) {
-  new_node = new Node;
-  new_node->data = flightNo;
-  temp->next = new_node;
-  temp = new_node;
-}
-
-/*
- * Delete a list from the list of flights
- *
- */
-void AirDB::deleteFlight(int flightNo) {
-}
-
-/*
- * Add a passenger to a flight
- *
- */
-void AirDB::addPassenger(int flightNo, string lastName, string firstName, int seatNo) {
-}
-
-/*
- * remove a passenger from a flight
- *
- */
-void AirDB::removePassenger(int flightNo, string lastName, string firstName, int seatNo) {
-}
-
-/*
- * Print out the passenger information including seat number.
- *
- */
-void AirDB::showPassenger(int flightNo, string lastName, string firstName) {
-}
-
-/*
- * Print out all the flight numbers
- *
- */
-void AirDB::showAllFlights() {
-}
-
-/*
- * Print out all the passengers in a flight
- *
- */
-void AirDB::showAllPassengers(int flightNo) {
-}
-
-/*
- * Print out all flight numbers and all passengers in each flight
- *
- */
-void AirDB::showAllFlightsAndPassengers() {
-}
 
 int main(void) {
-  AirDB* db = new AirDB();
+  AirDB * db = new AirDB();
   db->addFlight(1);
+  cout << db->get_temp_data() << endl;
+  db->addFlight(2);
+  cout << db->get_temp_data() << endl;
 }
