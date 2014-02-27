@@ -22,7 +22,8 @@ public:
     temp = new_node;
     head = new_node;
   }
-  
+
+  int get_node_data();
   void addFlight(int);
   void deleteFlight(int);
   void addPassenger(int, string, string, int);
@@ -33,7 +34,9 @@ public:
   void showAllFlightsAndPassengers();
 };
 
-
+int AirDB::get_node_data() {
+  return temp->data;
+}
 
 /*
  * Add a new flight to the list of flights
@@ -41,6 +44,8 @@ public:
  */
 void AirDB::addFlight(int flightNo) {
   new_node = new Node;
+  new_node->data = flightNo;
+  temp->next = new_node;
   temp = new_node;
 }
 
@@ -94,8 +99,6 @@ void AirDB::showAllFlightsAndPassengers() {
 }
 
 int main(void) {
-
-
-
-  
+  AirDB* db = new AirDB();
+  db->addFlight(1);
 }
