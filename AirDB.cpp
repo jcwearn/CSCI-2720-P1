@@ -67,16 +67,27 @@ public:
 	  break;
 	new_node = new_node->next;
       }
-
+      
       cout << "count:" << count << endl;
       cout << "list length: " << list_length() << endl;
+      cout << "flight no: " << flightNo << endl;
       
       if(count < list_length()) {
-	cout << "Node needs to be inserted\n";
-	new_node = new Node;
-	new_node->data = flightNo;
-	new_node->next = insert->next;
-	insert->next = new_node;
+	//check if node needs to become head
+	if(count == 0){
+	  cout << "Yo!\n";
+	  new_node = new Node;
+	  new_node->data = flightNo;
+	  new_node->next = head;
+	  head = new_node;
+	}
+	else{
+	  cout << "Node needs to be inserted\n";
+	  new_node = new Node;
+	  new_node->data = flightNo;
+	  new_node->next = insert->next;
+	  insert->next = new_node;
+	}
       }
       else {
 	cout << "Node needs to be appended\n";
@@ -86,9 +97,11 @@ public:
 	temp = new_node;
       }
 
+      cout << endl;
+
     }
     else {
-      cout << "First Node\n";
+      cout << "First Node\n\n";
       head->data = flightNo;
       first_node = false;
     }
@@ -140,9 +153,9 @@ public:
 
 int main(void) {
   AirDB * db = new AirDB();
-  db->addFlight(1);
-
   db->addFlight(2);
+
+  db->addFlight(1);
   
   db->addFlight(4);
 
