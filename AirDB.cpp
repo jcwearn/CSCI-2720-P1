@@ -3,9 +3,22 @@ using namespace std;
 
 class AirDB {
 protected:
-  AirDB * next;
-  int data;
+  struct Node {
+    int data;
+    Node * next;
+  };
+
+  Node * new_node;
+  Node * temp;
+  Node * head;
+
+  // new_node = new Node;
+  //temp = new_node;
+  //head = new_node;
+  
 public:
+  // void set_node_data(int, struct Node);
+  //int get_node_data(struct Node);
   void addFlight(int);
   void deleteFlight(int);
   void addPassenger(int, string, string, int);
@@ -16,18 +29,24 @@ public:
   void showAllFlightsAndPassengers();
 };
 
+
+
+//void AirDB::set_node_data(int value, struct Node n) {
+  
+//}
+
+//int AirDB::get_node_data(Node n) {
+  
+//}
+
+
 /*
  * Add a new flight to the list of flights
  *
  */
 void AirDB::addFlight(int flightNo) {
-  //int *temp;
-  //temp = new node;
-    
-  //temp->data = flightNo;
-  //temp->next = head;
-  
-  //head = temp;  
+  new_node = new Node;
+  temp = new_node;
 }
 
 /*
