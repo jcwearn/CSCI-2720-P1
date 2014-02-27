@@ -127,8 +127,13 @@ public:
 	break;
       new_node = new_node->next;
     }//while
-
-    insert->next = new_node->next;
+    
+    //check if node to be deleted is head
+    if(count == 0) {
+      head = new_node->next;
+    }//if
+    else
+      insert->next = new_node->next;
   }//deleteFlight()
 
   /*
@@ -180,6 +185,11 @@ int main(void) {
   db->traverse_list();
 
   db->deleteFlight(3);
+
+  cout << "Traverse Nodes:" << endl;
+  db->traverse_list();
+
+  db->deleteFlight(1);
 
   cout << "Traverse Nodes:" << endl;
   db->traverse_list();
