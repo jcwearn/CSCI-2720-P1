@@ -21,6 +21,23 @@ public:
   ~AirDB() {
   }
 
+  int list_length() {
+    int length;
+    new_node = head;
+    while(new_node) {
+      new_node = new_node->next;
+      length++;
+    }
+    return length;
+  }
+
+  void traverse_list() {
+    new_node = head;
+    while(new_node) {
+      cout << new_node->data << endl;
+      new_node = new_node->next;
+    }
+  }
   
   int get_temp_data() {
     return temp->data;
@@ -31,10 +48,15 @@ public:
    *
    */
   void addFlight(int flightNo) {
-    new_node = new Node;
-    new_node->data = flightNo;
-    temp->next = new_node;
-    temp = new_node;
+    if(list_length() > 1){
+      new_node = new Node;
+      new_node->data = flightNo;
+      temp->next = new_node;
+      temp = new_node;
+    }
+    else {
+      head->data = flightNo;
+    }
   }
 
   /*
@@ -87,4 +109,11 @@ int main(void) {
   cout << db->get_temp_data() << endl;
   db->addFlight(2);
   cout << db->get_temp_data() << endl;
+  db->addFlight(47);
+  cout << db->get_temp_data() << endl;
+
+  cout << db->list_length() << endl;
+
+  cout << "Traverse Nodes:" << endl;
+  db->traverse_list();
 }
