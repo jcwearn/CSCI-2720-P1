@@ -69,6 +69,21 @@ public:
     }//while
   }//traverse_list()
 
+  void traverse_list_p(int flightNo) {
+    new_node = head;    
+    while(new_node) {
+      if(flightNo == new_node->data) {
+	new_node->new_node_p = new_node->head_p;
+	while(new_node->new_node_p) {
+	  cout << new_node->new_node_p->lastName << endl;
+	  new_node->new_node_p = new_node->new_node_p->next;
+	}//while	
+	break;
+      }//if          
+      new_node = new_node->next;
+    }//while
+  }//traverse_list_p()
+  
   /*
    * Add a new flight to the list of flights
    *
@@ -158,60 +173,68 @@ public:
     new_node = head;    
     while(new_node) {
       if(flightNo == new_node->data) {
-	/*
+	
 	//case if node is not the first node
-	if(!first_node_p){
-            
+	if(!new_node->first_node_p){
+          int length;  
 	  int count;
-	  count = 0;
+	  length, count = 0;
 	  
-	  new_node_p = head_p;
-	  while(new_node_p) {
-	    if(new_node_p->lastName < lastName) {
-	      insert_p = new_node_p;
+	  new_node->new_node_p = new_node->head_p;
+	  while(new_node->new_node_p) {
+	    if(new_node->new_node_p->lastName < lastName) {
+	      new_node->insert_p = new_node->new_node_p;
 	      count++;
 	    }//if
 	    else
-	      break;
-	    new_node_p = new_node_p->next;
+	      length++;
+	    new_node->new_node_p = new_node->new_node_p->next;
 	  }//while 
 	  
 	  //checks if node needs to be inserted
-	  if(count < list_length()) {
+	  if(count < length) {
 	    //check if node needs to become head
 	    if(count == 0){
-	      new_node_p = new Node_p;
-	      new_node_p->lastName = lastName;
-	      new_node_p->next = head_p;
-	      head_p = new_node_p;
+	      new_node->new_node_p = new Node::Node_p;
+	      new_node->new_node_p->lastName = lastName;
+	      new_node->new_node_p->firstName = firstName;
+	      new_node->new_node_p->seatNo = seatNo;
+	      new_node->new_node_p->next = new_node->head_p;
+	      new_node->head_p = new_node->new_node_p;
 	    }//if
 	    //does a normal insert
 	    else{
-	      new_node_p = new Node_p;
-	      new_node_p->lastName = flightNo;
-	      new_node_p->next = insert_p->next;
-	      insert_p->next = new_node_p;
+	      new_node->new_node_p = new Node::Node_p;
+	      new_node->new_node_p->lastName = lastName;
+	      new_node->new_node_p->firstName = firstName;
+	      new_node->new_node_p->seatNo = seatNo;
+	      new_node->new_node_p->next = new_node->insert_p->next;
+	      new_node->insert_p->next = new_node->new_node_p;
 	    }//else
 	  }//if
 	  //checks if node needs to be appended
 	  else {
-	    new_node_p = new Node_p;
-	    new_node_p->lastName = lastName;
-	    temp_p->next = new_node_p;
-	    temp_p = new_node_p;
+	    new_node->new_node_p = new Node::Node_p;
+	    new_node->new_node_p->lastName = lastName;
+	    new_node->new_node_p->firstName = firstName;
+	    new_node->new_node_p->seatNo = seatNo;
+	    new_node->temp_p->next = new_node->new_node_p;
+	    new_node->temp_p = new_node->new_node_p;
 	  }//else
 	
-	  }//if */
+	}//if 
 	//case if node is first node
-	//else {
-	new_node->head_p->lastName = lastName;
-	new_node->head_p->firstName = firstName;
-	new_node->head_p->seatNo = seatNo;
-	new_node->first_node_p = false;
-	  //}//else
+	else {
+	  new_node->head_p->lastName = lastName;
+	  new_node->head_p->firstName = firstName;
+	  new_node->head_p->seatNo = seatNo;
+	  new_node->first_node_p = false;
+	}//else
 	
 	
       }//if
+
+      new_node = new_node->next;
     }//while
   }
 
@@ -266,4 +289,10 @@ int main(void) {
 
   cout << "Traverse Nodes:" << endl;
   db->traverse_list();
+
+  cout << "Traverse Passengers:" << endl;
+  db->addPassenger(2, "bar", "bar", 12);
+  db->addPassenger(2, "jar", "tar", 13);
+  db->traverse_list_p(2);
+  
 }
