@@ -6,11 +6,11 @@ protected:
 
   //Node class to manage linked list of flights
   class Node {
-  protected:
+  public:
     //struct Node_p to handle linked list of passengers for each flight
     struct Node_p {
-      char * lastName;
-      char * firstName;
+      string lastName;
+      string firstName;
       int seatNo;
       Node_p * next;
     }; //struct Passenger
@@ -20,7 +20,7 @@ protected:
     Node_p * temp_p;
     Node_p * head_p;
     bool first_node_p;
-  public:
+    //public:
     Node() {
       new_node_p = new Node_p;
       insert_p = new_node_p;
@@ -31,7 +31,6 @@ protected:
     int data;
     Node * next;
   };
-  
 
   Node * new_node;
   Node * insert;
@@ -41,7 +40,7 @@ protected:
   
 public:
   AirDB(){
-    new_node = new Node;
+    new_node = new Node();
     insert = new_node;
     temp = new_node;
     head = new_node;
@@ -159,6 +158,58 @@ public:
     new_node = head;    
     while(new_node) {
       if(flightNo == new_node->data) {
+	/*
+	//case if node is not the first node
+	if(!first_node_p){
+            
+	  int count;
+	  count = 0;
+	  
+	  new_node_p = head_p;
+	  while(new_node_p) {
+	    if(new_node_p->lastName < lastName) {
+	      insert_p = new_node_p;
+	      count++;
+	    }//if
+	    else
+	      break;
+	    new_node_p = new_node_p->next;
+	  }//while 
+	  
+	  //checks if node needs to be inserted
+	  if(count < list_length()) {
+	    //check if node needs to become head
+	    if(count == 0){
+	      new_node_p = new Node_p;
+	      new_node_p->lastName = lastName;
+	      new_node_p->next = head_p;
+	      head_p = new_node_p;
+	    }//if
+	    //does a normal insert
+	    else{
+	      new_node_p = new Node_p;
+	      new_node_p->lastName = flightNo;
+	      new_node_p->next = insert_p->next;
+	      insert_p->next = new_node_p;
+	    }//else
+	  }//if
+	  //checks if node needs to be appended
+	  else {
+	    new_node_p = new Node_p;
+	    new_node_p->lastName = lastName;
+	    temp_p->next = new_node_p;
+	    temp_p = new_node_p;
+	  }//else
+	
+	  }//if */
+	//case if node is first node
+	//else {
+	new_node->head_p->lastName = lastName;
+	new_node->head_p->firstName = firstName;
+	new_node->head_p->seatNo = seatNo;
+	new_node->first_node_p = false;
+	  //}//else
+	
 	
       }//if
     }//while
