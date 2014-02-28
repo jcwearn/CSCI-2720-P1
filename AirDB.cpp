@@ -60,29 +60,6 @@ public:
     
     return length;
   }// list_length()
-
-  void traverse_list() {
-    new_node = head;    
-    while(new_node) {
-      cout << new_node->data << endl;
-      new_node = new_node->next;
-    }//while
-  }//traverse_list()
-
-  void traverse_list_p(int flightNo) {
-    new_node = head;    
-    while(new_node) {
-      if(flightNo == new_node->data) {
-	new_node->new_node_p = new_node->head_p;
-	while(new_node->new_node_p) {
-	  cout << new_node->new_node_p->lastName << ", " << new_node->new_node_p->firstName << " " << new_node->new_node_p->seatNo << endl;
-	  new_node->new_node_p = new_node->new_node_p->next;
-	}//while	
-	break;
-      }//if          
-      new_node = new_node->next;
-    }//while
-  }//traverse_list_p()
   
   /*
    * Add a new flight to the list of flights
@@ -290,25 +267,57 @@ public:
    * Print out the passenger information including seat number.
    *
    */
-  void showPassenger(int flightNo, string lastName, string firstName);
+  void showPassenger(int flightNo, string lastName, string firstName) {
+    
+  }//showPassenger()
 
   /*
    * Print out all the flight numbers
    *
    */
-  void showAllFlights();
+  void showAllFlights() {
+    new_node = head;    
+    while(new_node) {
+      cout << new_node->data << endl;
+      new_node = new_node->next;
+    }//while
+  }//showAllFlights()
 
   /*
    * Print out all the passengers in a flight
    *
    */
-  void showAllPassengers(int flightNo);
+  void showAllPassengers(int flightNo) {
+    new_node = head;    
+    while(new_node) {
+      if(flightNo == new_node->data) {
+	new_node->new_node_p = new_node->head_p;
+	while(new_node->new_node_p) {
+	  cout << new_node->new_node_p->lastName << ", " << new_node->new_node_p->firstName << " " << new_node->new_node_p->seatNo << endl;
+	  new_node->new_node_p = new_node->new_node_p->next;
+	}//while	
+	break;
+      }//if          
+      new_node = new_node->next;
+    }//while
+  }//showAllPassengers()
 
   /*
    * Print out all flight numbers and all passengers in each flight
    *
    */
-  void showAllFlightsAndPassengers();
+  void showAllFlightsAndPassengers() {
+    new_node = head;    
+    while(new_node) {
+      cout << "Flight Number: " << new_node->data << endl;       
+      new_node->new_node_p = new_node->head_p;
+      while(new_node->new_node_p) {
+	cout << "\t" << new_node->new_node_p->lastName << ", " << new_node->new_node_p->firstName << " " << new_node->new_node_p->seatNo << endl;
+	new_node->new_node_p = new_node->new_node_p->next;
+      }//while
+      new_node = new_node->next;
+    }//while          
+  }//showAllFlightsAndPassengers()
 };
 
 
@@ -319,24 +328,26 @@ int main(void) {
   db->addFlight(4);
   db->addFlight(3);
   
-  cout << "Traverse Nodes:" << endl;
-  db->traverse_list();
+  cout << "Show All Flights:" << endl;
+  db->showAllFlights();
 
   db->deleteFlight(3);
 
-  cout << "Traverse Nodes:" << endl;
-  db->traverse_list();
+  cout << "Show All Flights:" << endl;
+  db->showAllFlights();
 
   db->deleteFlight(1);
 
-  cout << "Traverse Nodes:" << endl;
-  db->traverse_list();
+  cout << "Show All Flights:" << endl;
+  db->showAllFlights();
 
   cout << "Traverse Passengers:" << endl;
   db->addPassenger(2, "bar", "bar", 12);
   db->addPassenger(2, "bar", "ar", 11);
   db->addPassenger(2, "jar", "tar", 13);
   db->removePassenger(2, "jar", "tar", 13);
-  db->traverse_list_p(2);
+  db->showAllPassengers(2);
+
+  db->showAllFlightsAndPassengers();
   
 }
