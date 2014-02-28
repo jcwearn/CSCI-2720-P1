@@ -3,16 +3,41 @@ using namespace std;
 
 class AirDB {
 protected:
-  struct Node {
+
+  //Node class to manage linked list of flights
+  class Node {
+  protected:
+    //struct Node_p to handle linked list of passengers for each flight
+    struct Node_p {
+      char * lastName;
+      char * firstName;
+      int seatNo;
+      Node_p * next;
+    }; //struct Passenger
+
+    Node_p * new_node_p;
+    Node_p * insert_p;
+    Node_p * temp_p;
+    Node_p * head_p;
+    bool first_node_p;
+  public:
+    Node() {
+      new_node_p = new Node_p;
+      insert_p = new_node_p;
+      temp_p = new_node_p;
+      head_p = new_node_p;
+      first_node_p = true;
+    }
     int data;
     Node * next;
-  }; //struct Node
+  };
+  
 
   Node * new_node;
   Node * insert;
   Node * temp;
   Node * head;
-  bool first_node;
+  bool first_node;  
   
 public:
   AirDB(){
@@ -29,7 +54,7 @@ public:
     int length = 0;
     new_node = head;
     
-    while(new_node != NULL) {
+    while(new_node) {
       new_node = new_node->next;
       length++;
     }//while
@@ -38,17 +63,12 @@ public:
   }// list_length()
 
   void traverse_list() {
-    new_node = head;
-    
+    new_node = head;    
     while(new_node) {
       cout << new_node->data << endl;
       new_node = new_node->next;
     }//while
   }//traverse_list()
-  
-  int get_temp_data() {
-    return temp->data;
-  }//get_temp_data()
 
   /*
    * Add a new flight to the list of flights
@@ -70,24 +90,20 @@ public:
 	else
 	  break;
 	new_node = new_node->next;
-      }//while
-      
-      //cout << "count:" << count << endl;
-      //cout << "list length: " << list_length() << endl;
-      //cout << "flight no: " << flightNo << endl;
+      }//while 
 
       //checks if node needs to be inserted
       if(count < list_length()) {
 	//check if node needs to become head
 	if(count == 0){
-	  new_node = new Node;
+	  new_node = new Node();
 	  new_node->data = flightNo;
 	  new_node->next = head;
 	  head = new_node;
 	}//if
 	//does a normal insert
 	else{
-	  new_node = new Node;
+	  new_node = new Node();
 	  new_node->data = flightNo;
 	  new_node->next = insert->next;
 	  insert->next = new_node;
@@ -95,7 +111,7 @@ public:
       }//if
       //checks if node needs to be appended
       else {
-       	new_node = new Node;
+       	new_node = new Node();
 	new_node->data = flightNo;
 	temp->next = new_node;
 	temp = new_node;
@@ -104,7 +120,6 @@ public:
     }//if
     //case if node is first node
     else {
-      cout << "First Node\n\n";
       head->data = flightNo;
       first_node = false;
     }//else
@@ -140,7 +155,14 @@ public:
    * Add a passenger to a flight
    *
    */
-  void addPassenger(int flightNo, string lastName, string firstName, int seatNo);
+  void addPassenger(int flightNo, string lastName, string firstName, int seatNo) {
+    new_node = head;    
+    while(new_node) {
+      if(flightNo == new_node->data) {
+	
+      }//if
+    }//while
+  }
 
   /*
    * remove a passenger from a flight
