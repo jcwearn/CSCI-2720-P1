@@ -255,7 +255,35 @@ public:
    * remove a passenger from a flight
    *
    */
-  void removePassenger(int flightNo, string lastName, string firstName, int seatNo);
+  void removePassenger(int flightNo, string lastName, string firstName, int seatNo) {
+    int count = 0;
+
+    new_node = head;
+    while(new_node) {
+      if(new_node->data == flightNo) {
+
+	while(new_node->new_node_p) {
+	  if(new_node->new_node_p->lastName < lastName) {
+	    new_node->insert_p = new_node->new_node_p;
+	    count++;
+	  }//if
+	  else
+	    break;
+	  new_node->new_node_p = new_node->new_node_p->next;
+	}//while
+      
+	//check if node to be deleted is head
+	if(count == 0) {
+	  new_node->head_p = new_node->new_node_p->next;
+	}//if
+	else
+	  new_node->insert_p->next = new_node->new_node_p->next;
+
+    
+      }//if
+      new_node = new_node->next;
+    }//while
+  }//removePassenger
 
   /*
    * Print out the passenger information including seat number.
@@ -307,6 +335,7 @@ int main(void) {
   db->addPassenger(2, "bar", "bar", 12);
   db->addPassenger(2, "bar", "ar", 11);
   db->addPassenger(2, "jar", "tar", 13);
+  //  db->removePassenger(2, "jar", "tar", 13);
   db->traverse_list_p(2);
   
 }
