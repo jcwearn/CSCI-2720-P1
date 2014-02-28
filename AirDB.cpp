@@ -1,4 +1,5 @@
 #include <iostream>
+#include "airdb.h"
 using namespace std;
 
 class AirDB {
@@ -268,7 +269,26 @@ public:
    *
    */
   void showPassenger(int flightNo, string lastName, string firstName) {
+    int count;
+    count = 0;
     
+    new_node = head;    
+    while(new_node) {
+      if(flightNo == new_node->data) {
+	
+	//while loop through passenger list
+	new_node->new_node_p = new_node->head_p;
+	while(new_node->new_node_p) {
+	  if((new_node->new_node_p->lastName == lastName) && (new_node->new_node_p->firstName == firstName)) {
+	    cout << new_node->new_node_p->lastName << ", " << new_node->new_node_p->firstName << " " << new_node->new_node_p->seatNo << endl;
+	    break;
+	  }//if
+	  new_node->new_node_p = new_node->new_node_p->next;
+	}//while 	  
+      }//if
+
+      new_node = new_node->next;
+    }//while
   }//showPassenger()
 
   /*
@@ -321,7 +341,7 @@ public:
   }//showAllFlightsAndPassengers()
 };
 
-
+/*
 int main(void) {
   AirDB * db = new AirDB();
   db->addFlight(2);
@@ -350,5 +370,6 @@ int main(void) {
   db->showAllPassengers(2);
 
   db->showAllFlightsAndPassengers();
+  db->showPassenger(2, "bar", "bar");
   
-}
+  }*/
