@@ -75,7 +75,7 @@ public:
       if(flightNo == new_node->data) {
 	new_node->new_node_p = new_node->head_p;
 	while(new_node->new_node_p) {
-	  cout << new_node->new_node_p->lastName << endl;
+	  cout << new_node->new_node_p->lastName << ", " << new_node->new_node_p->firstName << " " << new_node->new_node_p->seatNo << endl;
 	  new_node->new_node_p = new_node->new_node_p->next;
 	}//while	
 	break;
@@ -170,24 +170,37 @@ public:
    *
    */
   void addPassenger(int flightNo, string lastName, string firstName, int seatNo) {
+    int length;  
+    int count;
+    length, count = 0;
+
     new_node = head;    
     while(new_node) {
       if(flightNo == new_node->data) {
 	
 	//case if node is not the first node
 	if(!new_node->first_node_p){
-          int length;  
-	  int count;
-	  length, count = 0;
-	  
+
+	  //while loop through passenger list
 	  new_node->new_node_p = new_node->head_p;
 	  while(new_node->new_node_p) {
+
+	    //checks if lastName in list is less than lastName param
 	    if(new_node->new_node_p->lastName < lastName) {
-	      new_node->insert_p = new_node->new_node_p;
-	      count++;
+	     	new_node->insert_p = new_node->new_node_p;
+		count++;
 	    }//if
-	    else
-	      length++;
+	    
+	    //checks if lastName in list is equal to lastName param
+	    else if(new_node->new_node_p->lastName == lastName) {
+	      //if it is equal, sort by first name
+	      if(new_node->new_node_p->firstName < firstName) {
+		new_node->insert_p = new_node->new_node_p;
+		count++;
+	      }//if
+	    }//else if
+	    
+	    length++;
 	    new_node->new_node_p = new_node->new_node_p->next;
 	  }//while 
 	  
@@ -292,6 +305,7 @@ int main(void) {
 
   cout << "Traverse Passengers:" << endl;
   db->addPassenger(2, "bar", "bar", 12);
+  db->addPassenger(2, "bar", "ar", 11);
   db->addPassenger(2, "jar", "tar", 13);
   db->traverse_list_p(2);
   
