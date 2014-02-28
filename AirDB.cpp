@@ -262,6 +262,7 @@ public:
     while(new_node) {
       if(new_node->data == flightNo) {
 
+	new_node->new_node_p = new_node->head_p;
 	while(new_node->new_node_p) {
 	  if(new_node->new_node_p->lastName < lastName) {
 	    new_node->insert_p = new_node->new_node_p;
@@ -335,7 +336,7 @@ int main(void) {
   db->addPassenger(2, "bar", "bar", 12);
   db->addPassenger(2, "bar", "ar", 11);
   db->addPassenger(2, "jar", "tar", 13);
-  //  db->removePassenger(2, "jar", "tar", 13);
+  db->removePassenger(2, "jar", "tar", 13);
   db->traverse_list_p(2);
   
 }
