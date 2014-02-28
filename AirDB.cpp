@@ -312,7 +312,8 @@ public:
       cout << "Flight Number: " << new_node->data << endl;       
       new_node->new_node_p = new_node->head_p;
       while(new_node->new_node_p) {
-	cout << "\t" << new_node->new_node_p->lastName << ", " << new_node->new_node_p->firstName << " " << new_node->new_node_p->seatNo << endl;
+	if(!(new_node->new_node_p->lastName == ""))
+	  cout << "\t" << new_node->new_node_p->lastName << ", " << new_node->new_node_p->firstName << " " << new_node->new_node_p->seatNo << endl;
 	new_node->new_node_p = new_node->new_node_p->next;
       }//while
       new_node = new_node->next;
